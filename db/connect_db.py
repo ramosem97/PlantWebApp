@@ -3,7 +3,7 @@ import sqlite3 as sql
 import pandas as pd
 
 ### GLOBAL VARIABLES
-TABLE_LIST = ['plants']
+TABLE_LIST = ['plant_inventory', 'plant_details']
 
 ### FUCNTIONS
 def connect_to_db(db_name='house_plants'):
@@ -16,7 +16,7 @@ def connect_to_db(db_name='house_plants'):
     """
 
     ## Create DB if it does not exist, otherwise create a connection
-    conn = sql.connect('{db_name}.db'.format(db_name=db_name))
+    conn = sql.connect('.\db\{db_name}.db'.format(db_name=db_name), check_same_thread=False)
     
     ## If Table's dont exist, create them
     check_tables(conn)
@@ -54,7 +54,7 @@ def create_table(conn, table_name):
     Output: None
     """
     ## Read Plant Sample Data
-    table_csv = 'sample_tables\{table_name}.csv'.format(table_name=table_name)
+    table_csv = 'db\sample_tables\{table_name}.csv'.format(table_name=table_name)
     tdf = pd.read_csv(table_csv, index_col=0)
     
     ## Send Table to DB
@@ -66,4 +66,10 @@ def create_table(conn, table_name):
         CREATE TABLE {table_name} as 
             SELECT * FROM {table_name}_df
         """.format(table_name=table_name)
+    )
+    
+    ## Delete Other Table with DataFrame
+    conn.execute(
+        """
+        DROP TABLE {table_name}_df""".format(table_name=table_name)
     )

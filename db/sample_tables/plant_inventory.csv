@@ -1,0 +1,3 @@
+﻿PlantID,Active,Iteration,PlantInfoID,Size,PurchaseDate,PottedDate,Comments
+P0001,TRUE,1,1,6,12/23/2021,12/23/2021,
+P0002,TRUE,1,2,4,5/1/2021,9/1/2021,First Set of Plants ever bought
