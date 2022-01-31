@@ -55,7 +55,7 @@ def create_table(conn, table_name):
     """
     ## Read Plant Sample Data
     table_csv = 'sample_tables\{table_name}.csv'.format(table_name=table_name)
-    tdf = pd.read_csv(table_csv)
+    tdf = pd.read_csv(table_csv, index_col=0)
     
     ## Send Table to DB
     tdf.to_sql("{table_name}_df".format(table_name=table_name), conn, if_exists="replace")
